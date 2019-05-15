@@ -16,13 +16,20 @@ export default new Router({
       }
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/network_stat",
+      name: "network_stat",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import("./views/network_stat.vue")
     },
     {
-       path: '/404',
-       component: import(/* webpackChunkName: "about" */ "./views/About.vue") },
+      path: "/map",
+      name: "map",
+      component: () =>
+        import("./views/Map.vue")
+    },
+    // {
+    //   path: '/404',
+    //   component: import(/* webpackChunkName: "about" */ "./views/About.vue")
+    // },
   ]
 });

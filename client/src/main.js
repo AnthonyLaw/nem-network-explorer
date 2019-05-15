@@ -10,6 +10,13 @@ Vue.config.productionTip = false;
 Vue.component('top-header',TopHead);
 Vue.component('page-menu',PageMenu);
 Vue.component('page-footer',Pagefooter);
+var settings = {
+    base_url:"http://localhost:8080/",
+    api_url:"http://localhost:90/",
+    networktime:1459468800000
+};
+
+window.conf = settings;
 
 new Vue({
   router,

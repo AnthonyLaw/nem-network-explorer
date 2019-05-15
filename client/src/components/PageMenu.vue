@@ -3,7 +3,7 @@
     <div class="container n-p">
       <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-md-1 logo-wrap">
-          <a href="index.html" class="logo-h">
+          <a href="#" class="logo-h">
             <img src="theme/img/logo-w.png" alt="Nem">
           </a>
         </div>
@@ -11,14 +11,18 @@
           <div class="nav-con">
             <ul class="nav-menu">
               <li>
-                <router-link to>Nodes</router-link>|
+                <router-link to="/" exact active-class="active">Nodes</router-link>|
               </li>
               <li>
-                <router-link to="/network_stat">Network Stat</router-link>
+                <router-link to="/network_stat/" exact active-class="active">Network Stat</router-link>
+              </li>
+               <li>
+                <router-link to="/map" exact active-class="active">Map</router-link>
               </li>
               <li>
-                <router-link to="/map">Map</router-link>
+                <router-link to="/namespacelist" exact active-class="active">Namespace list</router-link>
               </li>
+
             </ul>
           </div>
         </div>
@@ -38,7 +42,7 @@
 <script>
 export default {
   name: "PageMenu",
-  props: {
+  props: { 
     msg: String
   }
 };

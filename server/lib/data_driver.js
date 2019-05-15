@@ -7,6 +7,7 @@ const axios = require('axios');
 const satelize = require('satelize');
 let fnc = {};
 var file_busy = 0;
+const nem2 = require('nem2-sdk');
 
 fnc.sync_all_chain = function () {
     create_base_info();
@@ -124,7 +125,7 @@ function mother_node_update() {
 
     axios.all([
         axios.get(conf.nis_base_url + 'node/info'),
-        axios.get(conf.nis_base_url + '/chain/height')
+        axios.get(conf.nis_base_url + 'chain/height')
     ]).then(axios.spread((res1, res2) => {
         base_data['node_info'] = res1.data;
         base_data['chain_height'] = res2.data.height[0];
@@ -132,15 +133,17 @@ function mother_node_update() {
             axios.get(conf.nis_base_url + 'block/' + res2.data.height[0])
                 .then(response => {
                     base_data['last_block_info'] = response.data;
+                    
+                    base_data['last_block_time'] = new nem2.UInt64(base_data['last_block_info']['block']['timestamp']).compact() + conf.networktime;
                     fs.writeFile(__dirname + "/../data/mother_node_info.json", JSON.stringify(base_data), function (err) {
                         if (err) { return console.log(err); } console.log("mother_node_info created");
                     });
                 }).catch(error => {
-                    console.log('er');
+                    console.log('er 1', error);
                 });
         }
     })).catch(error => {
-        console.log('er');
+        console.log('er2');
     });
 }
 module.exports = fnc;

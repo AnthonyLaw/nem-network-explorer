@@ -504,7 +504,7 @@ img {
     transition: all 0.2s ease-in-out;
 }
 
-.nav-menu li.active a::before {
+.nav-menu li a.active::before {
     content: '';
     position: absolute;
     top: -17px;

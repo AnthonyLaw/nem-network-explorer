@@ -17,7 +17,7 @@ export default {
             required:true,
             default:''
         },
-        ItemData:{ type:String},
+        ItemData:{ },
         itemThumb:{ type:String}
     }
     //['ItemTitle','ItemData','itemThumb']

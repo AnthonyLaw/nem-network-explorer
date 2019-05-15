@@ -17,10 +17,28 @@ router.get('/chain_info', async function (req, res, next) {
       'block_time': data[0].last_block_info.block.timestamp
     }
     var s = new nem2.UInt64(data[0].last_block_info.block.timestamp).compact();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(send_data);
   });
 });
+router.get('/node_list', async function (req, res, next) {
+  var allrequests = [getData(__dirname + "/../data/nodelist.json"), getData(__dirname + "/../data/mother_node_info.json")]
+  Promise.all(allrequests).then((data) => {
+    console.log(data);
+    var page_infodata = {
+      'node_list': data[0],
+      'chain_info': data[1],
+      'ip_nodes': conf.api_address,
+    };
+    page_infodata.chain_info.last_block_info.block.timestamp = new nem2.UInt64(page_infodata.chain_info.last_block_info.block.timestamp).compact()+conf.networktime;
+    //console.log( page_infodata.chain_info.last_block_info.block.timestamp );
 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.send(page_infodata);
+  });
+});
 
 
 function getData(filename) {
