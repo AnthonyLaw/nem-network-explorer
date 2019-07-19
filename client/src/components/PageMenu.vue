@@ -4,25 +4,26 @@
       <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-md-1 logo-wrap">
           <a href="#" class="logo-h">
-            <img src="theme/img/logo-w.png" alt="Nem">
+            <img src="theme/img/logo-w.png" alt="Nem" />
           </a>
         </div>
         <div class="col-md-8">
           <div class="nav-con">
             <ul class="nav-menu">
               <li>
-                <router-link to="/" exact active-class="active">Nodes</router-link>|
+                <router-link :to="{ name: 'home'}" exact active-class="active">Nodes</router-link>|
               </li>
               <li>
-                <router-link to="/network_stat/" exact active-class="active">Network Stat</router-link>
+                <router-link :to="{ name: 'network-stat'}" active-class="active">Network Stat</router-link>
               </li>
                <li>
-                <router-link to="/map" exact active-class="active">Map</router-link>
+                <!-- <router-link :to="{ name: 'map'}" active-class="active">Map</router-link> -->
+                <router-link to="/map" active-class="active">Map</router-link>
               </li>
               <li>
-                <router-link to="/namespacelist" exact active-class="active">Namespace list</router-link>
+                <router-link :to="{ name: 'blocks' }" active-class="active">Blocks</router-link>
+                <!-- <router-link to="/blocks" active-class="active">Blocks</router-link> -->
               </li>
-
             </ul>
           </div>
         </div>
@@ -42,7 +43,7 @@
 <script>
 export default {
   name: "PageMenu",
-  props: { 
+  props: {
     msg: String
   }
 };

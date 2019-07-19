@@ -1,8 +1,6 @@
 <template>
   <div>
-    <link rel="stylesheet" href="theme/css/leaflet.css">
-    <top-header></top-header>
-    <page-menu></page-menu>
+    <link rel="stylesheet" href="theme/css/leaflet.css" />
     <div class="page_con">
       <div class="full-con mt-5 mob_con">
         <div class="container p-2">
@@ -14,7 +12,6 @@
         </div>
       </div>
     </div>
-    <page-footer></page-footer>
     <script src="theme/js/leaflet.min.js" type="application/javascript" onload="init_map()"></script>
     <script type="application/javascript">
       function init_map(){
@@ -61,7 +58,7 @@
       frn_name = item.nodeinfo.friendlyName;
 
       L.marker([item.latitude, item.longitude], { icon: greenIcon }).addTo(map).bindPopup('Server name : '+ frn_name +
-      '<br> IP :  '+key + ' <br>'+ item.region +' '+item.country); 
+      '<br> IP :  '+key + ' <br>'+ item.region +' '+item.country);
     });
   })(jQuery);
 
@@ -79,7 +76,6 @@ export default {
     };
   },
 
-  mounted() {
-       }
+  mounted() {}
 };
 </script>

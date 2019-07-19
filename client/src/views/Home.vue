@@ -1,7 +1,5 @@
 <template>
   <div>
-    <top-header></top-header>
-    <page-menu></page-menu>
     <div class="page_con">
       <div class="full-con mt-5 mob_con">
         <div class="container">
@@ -91,7 +89,6 @@
         </div>
       </div>
     </div>
-    <page-footer></page-footer>
     <script type="application/javascript">
   $(document).ready(function() {
     var dt = $("#table-nodes-list").DataTable({
@@ -105,7 +102,6 @@
 <script>
 import tileWidjet from "@/components/widjet01.vue";
 import axios from "axios";
-import nem2 from "nem2-sdk";
 import nodelist from "../../../server/data/nodelist.json";
 import mother_nodeinfo from "../../../server/data/mother_node_info.json";
 export default {

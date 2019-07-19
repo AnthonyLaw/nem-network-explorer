@@ -1,7 +1,5 @@
 <template>
   <div>
-    <top-header></top-header>
-    <page-menu></page-menu>
     <div class="page_con">
       <div class="full-con mt-5">
         <div class="container">
@@ -78,28 +76,13 @@
         </div>
       </div>
     </div>
-    <page-footer></page-footer>
-     <script type="application/javascript" src="/theme/js/chart.min.js" onload="init_charts()"></script>
-    <script type="application/javascript">
-      function init_charts(){
-         var el = document.createElement('script');
-         el.src = "theme/js/data_config.js";
-         document.body.appendChild(el);
-      }
-    </script>
   </div>
 </template>
 <script>
-import tileWidjet from "@/components/widjet01.vue";
-import axios from "axios";
-import nem2 from "nem2-sdk";
 import nodelist from "../../../server/data/nodelist.json";
 import mother_nodeinfo from "../../../server/data/mother_node_info.json";
 export default {
   name: "home",
-  components: {
-    "tile-widjet": tileWidjet
-  },
   data() {
     return {
       chain_info: mother_nodeinfo,
@@ -110,14 +93,12 @@ export default {
     };
   },
   methods: {
-    
+    // init_charts(){
+    //   var el = document.createElement('script');
+    //   el.src = "theme/js/data_config.js";
+    //   document.body.appendChild(el);
+    // }
   },
-  mounted() {
-    // let ckeditor = document.createElement("script");
-    // ckeditor.setAttribute("src", "/theme/js/chart.min.js");
-    // document.head.appendChild(ckeditor);
-
-
-  }
+  mounted() {}
 };
 </script>
