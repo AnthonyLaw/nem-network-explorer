@@ -27,7 +27,7 @@
                 >{{ index + 1}}</router-link>
               </td>
               <td data-idx="2">{{tx.type}}</td>
-              <td data-idx="2">{{tx.signer.address.address}} {{tx.recipient ? '/ ' + tx.recipient : '' }}
+              <td data-idx="2">{{tx.signer.address.address}} {{tx.recipient ? '/ ' + tx.recipient.address : '' }}
               </td>
                <td data-idx="2">{{tx.maxFee}}</td>
             </tr>
