@@ -1,6 +1,15 @@
 import { Listener, ChainHttp, BlockHttp } from 'nem2-sdk';
 
+const nodeEndPoint = '52.194.207.217:3000';
+
+const endpoint = 'http://' + nodeEndPoint;
+const wsEndpoint = 'ws://' + nodeEndPoint;
+
+const chainHttp = new ChainHttp(endpoint);
+const blockHttp = new BlockHttp(endpoint);
+
 const state = {
+  currentPage: 1,
   currentBlockHeight: 0,
   blockList: [],
   listener: false,
@@ -20,7 +29,7 @@ const mutations = {
     state.listener = listener;
   },
   addBlock(state, formattedBlock) {
-    if (state.blockList.length >= 10) state.blockList.pop();
+    if (state.blockList.length >= 25) state.blockList.pop();
     state.blockList.unshift(formattedBlock);
   },
   setListenerStatus(state, status, text) {
@@ -42,14 +51,15 @@ const actions = {
     commit('setLatestBlockHeight', blockNumber);
   },
 
-  ADD_BLOCK({ commit, dispatch }, block) {
+  ADD_BLOCK({ commit, dispatch, state }, block) {
     const timestampNemesisBlock = 1459468800;
     block.height = block.height.compact();
     block.timestamp = block.timestamp.compact() / 1000 + timestampNemesisBlock;
     block.totalFee = block.totalFee.compact()
 
     dispatch('SET_BLOCK_NUMBER', block.height);
-    commit('addBlock', block);
+
+    if(state.currentPage == 1) commit('addBlock', block);
   },
 
   FORMAT_BLOCK({ commit },blockList) {
@@ -66,8 +76,6 @@ const actions = {
   async FETCH_LATEST_BLOCKS({dispatch,getters,commit}){
     const oldListener = getters.GET_LISTENER;
     if (oldListener) oldListener.close();
-
-    const wsEndpoint = 'ws://3.0.78.183:3000';
 
     commit('createListener', new Listener(wsEndpoint, WebSocket));
     const listener = getters.GET_LISTENER;
@@ -93,11 +101,6 @@ const actions = {
   },
 
   async FETCH_BLOCKS_LIST({dispatch,getters,commit}){
-    const endpoint = 'http://3.0.78.183:3000';
-
-    const chainHttp = new ChainHttp(endpoint);
-    const blockHttp = new BlockHttp(endpoint);
-
     const blockHeight = (await chainHttp.getBlockchainHeight().toPromise()).compact()
 
     blockHttp.getBlocksByHeightWithLimit(blockHeight,25).subscribe(
@@ -105,6 +108,15 @@ const actions = {
         dispatch('FORMAT_BLOCK',blocklist,{ root: true });
         dispatch('SET_BLOCK_NUMBER', blockHeight);
         dispatch('FETCH_LATEST_BLOCKS',{ root: true });
+      }
+    );
+  },
+
+  FETCH_BLOCKS_LIST_BY_HEIGHT({dispatch}, blockHeight) {
+
+    blockHttp.getBlocksByHeightWithLimit(blockHeight,25).subscribe(
+      (blocklist) =>{
+        dispatch('FORMAT_BLOCK',blocklist,{ root: true });
       }
     );
   }
