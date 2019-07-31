@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="full-con mt-4 mob_con">
       <div class="container p-2">
         <div class="widget has-shadow">
@@ -29,8 +28,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="block in blocks.blockList" v-bind:key="block.id">
-                      <td data-idx="2">{{block.height}}</td>
+                    <tr v-for="block in blocks.blockList" :key="block.id">
+                      <td data-idx="2"><router-link :to="{ name: 'block-detail', params: { blockHeight: block.height }}">{{block.height}}</router-link></td>
                       <td data-idx="2">{{block.signer.address.address}}</td>
                       <td data-idx="3">{{block.numTransactions ? 'undefine' : 0}}</td>
                       <td data-idx="4">{{block.totalFee}}</td>
@@ -41,6 +40,7 @@
                 </table>
               </div>
             </div>
+            <pagination-button />
           </div>
         </div>
       </div>
@@ -49,15 +49,17 @@
 </template>
 
 <script>
-import store from "../store";
 import { mapState } from "vuex";
-import moment from 'moment';
+import moment from "moment";
+import PaginationButton from "@/components/PaginationButton";
 
 export default {
   name: "Blocks",
-  store,
+  components: {
+		PaginationButton
+	},
   computed: {
-    ...mapState(["blocks"])
+    ...mapState(["blocks"]),
   },
   created() {
     this.$store.dispatch("FETCH_BLOCKS_LIST");
@@ -68,7 +70,7 @@ export default {
     },
     compareTime(blockTimestamp) {
       return moment(blockTimestamp).fromNow();
-    }
-  }
+    },
+  },
 };
 </script>
